@@ -1,654 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mandeep Bhatt - Full Stack Developer</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --gray-1: #f5f5f5;
-            --gray-2: #e0e0e0;
-            --gray-3: #999999;
-            --gray-4: #333333;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Georgia', serif;
-            background-color: var(--white);
-            color: var(--black);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        header {
-            padding: 80px 40px;
-            border-bottom: 1px solid var(--gray-2);
-            animation: slideDown 0.8s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .header-content {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: -2px;
-            margin-bottom: 15px;
-            line-height: 1.1;
-        }
-
-        .title {
-            font-size: 1.1rem;
-            color: var(--gray-3);
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-size: 1.05rem;
-            color: var(--gray-4);
-            margin-top: 10px;
-            font-weight: 300;
-        }
-
-        nav {
-            position: fixed;
-            top: 40px;
-            right: 40px;
-            z-index: 100;
-            animation: slideInRight 0.8s ease-out;
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        nav a {
-            display: inline-block;
-            margin-left: 40px;
-            text-decoration: none;
-            color: var(--black);
-            font-size: 0.95rem;
-            position: relative;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: var(--black);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        main {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        section {
-            padding: 100px 0;
-            border-bottom: 1px solid var(--gray-2);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        section:nth-child(1) { animation-delay: 0.3s; }
-        section:nth-child(2) { animation-delay: 0.5s; }
-        section:nth-child(3) { animation-delay: 0.7s; }
-        section:nth-child(4) { animation-delay: 0.9s; }
-
-        h2 {
-            font-size: 2.2rem;
-            margin-bottom: 50px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            position: relative;
-            display: inline-block;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -15px;
-            left: 0;
-            width: 60px;
-            height: 2px;
-            background-color: var(--black);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-top: 40px;
-        }
-
-        .about-text {
-            font-size: 1.05rem;
-            color: var(--gray-4);
-            line-height: 1.8;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-        }
-
-        .details-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .detail-item {
-            border-left: 2px solid var(--gray-2);
-            padding-left: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .detail-item:hover {
-            border-left-color: var(--black);
-            padding-left: 25px;
-        }
-
-        .detail-label {
-            font-size: 0.85rem;
-            color: var(--gray-3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-
-        .detail-value {
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 25px;
-            margin-top: 40px;
-        }
-
-        .skill-category {
-            border: 1px solid var(--gray-2);
-            padding: 25px;
-            transition: all 0.3s ease;
-        }
-
-        .skill-category:hover {
-            border-color: var(--black);
-            background-color: var(--gray-1);
-            transform: translateY(-5px);
-        }
-
-        .skill-name {
-            font-size: 0.9rem;
-            color: var(--gray-3);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
-
-        .skill-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .skill-tag {
-            font-size: 0.95rem;
-            background-color: var(--black);
-            color: var(--white);
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .skill-tag:hover {
-            background-color: var(--gray-4);
-            transform: scale(1.05);
-        }
-
-        .projects-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .project-card {
-            position: relative;
-            aspect-ratio: 1;
-            border: 1px solid var(--gray-2);
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background-color: var(--gray-1);
-        }
-
-        .project-card:hover {
-            border-color: var(--black);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: var(--black);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 2;
-        }
-
-        .project-card:hover::before {
-            opacity: 0.85;
-        }
-
-        .project-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 30px;
-            z-index: 3;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .project-card:hover .project-content {
-            opacity: 1;
-        }
-
-        .project-title {
-            font-size: 1.5rem;
-            color: var(--white);
-            margin-bottom: 15px;
-            text-align: center;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .project-tech {
-            font-size: 0.85rem;
-            color: var(--gray-1);
-            text-align: center;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .project-link {
-            display: inline-block;
-            padding: 10px 20px;
-            border: 1px solid var(--white);
-            color: var(--white);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .project-link:hover {
-            background-color: var(--white);
-            color: var(--black);
-        }
-
-        .certificate-item {
-            display: flex;
-            gap: 30px;
-            align-items: flex-start;
-            margin-bottom: 40px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid var(--gray-2);
-            transition: all 0.3s ease;
-        }
-
-        .certificate-item:last-child {
-            border-bottom: none;
-        }
-
-        .certificate-item:hover {
-            transform: translateX(10px);
-        }
-
-        .cert-icon {
-            width: 60px;
-            height: 60px;
-            border: 2px solid var(--black);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            flex-shrink: 0;
-        }
-
-        .cert-content {
-            flex: 1;
-        }
-
-        .cert-title {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .cert-meta {
-            font-size: 0.9rem;
-            color: var(--gray-3);
-            margin-bottom: 8px;
-        }
-
-        .cert-description {
-            font-size: 0.95rem;
-            color: var(--gray-4);
-            line-height: 1.6;
-        }
-
-        footer {
-            padding: 60px 40px;
-            border-top: 1px solid var(--gray-2);
-            text-align: center;
-            margin-top: 100px;
-        }
-
-        .footer-content {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 30px;
-        }
-
-        .contact-link {
-            text-decoration: none;
-            color: var(--black);
-            font-size: 0.95rem;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .contact-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: var(--black);
-            transition: width 0.3s ease;
-        }
-
-        .contact-link:hover::after {
-            width: 100%;
-        }
-
-        .footer-text {
-            color: var(--gray-3);
-            font-size: 0.9rem;
-            margin-top: 30px;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 60px 20px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            nav {
-                position: static;
-                margin-bottom: 30px;
-                display: flex;
-                gap: 20px;
-                flex-wrap: wrap;
-            }
-
-            nav a {
-                margin: 0;
-            }
-
-            main {
-                padding: 0 20px;
-            }
-
-            section {
-                padding: 60px 0;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .projects-container {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                gap: 20px;
-            }
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#certificates">Certificates</a>
-        </nav>
-        <div class="header-content">
-            <h1>Mandeep Bhatt</h1>
-            <p class="title">Full Stack Developer</p>
-            <p class="subtitle">BTech CSE AI & ML | 6th Semester</p>
+
+<body class="bg-white text-black font-serif">
+
+    <nav class="fixed top-10 right-10 space-x-8 text-sm font-medium">
+        <a href="#about" class="hover:underline">About</a>
+        <a href="#skills" class="hover:underline">Skills</a>
+        <a href="#projects" class="hover:underline">Projects</a>
+        <a href="#certificates" class="hover:underline">Certificates</a>
+    </nav>
+
+    <header class="border-b px-10 py-20">
+        <div class="max-w-5xl mx-auto">
+            <h1 class="text-5xl font-bold tracking-tight mb-4">Mandeep Bhatt</h1>
+            <p class="uppercase tracking-widest text-gray-500 text-sm">
+                Full Stack Developer
+            </p>
+            <p class="mt-2 text-gray-700">
+                Computer Science (AI & ML) • Graduating 2026
+            </p>
         </div>
     </header>
 
-    <main>
-        <section id="about">
-            <h2>About</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Full stack developer passionate about building scalable web applications. Currently pursuing BTech in Computer Science with specialization in AI & ML. Experienced in modern web technologies and database design.</p>
-                    <p>Focused on creating efficient solutions with clean code and strong system design principles. Always learning and adapting to new technologies in the rapidly evolving tech landscape.</p>
+    <main class="max-w-5xl mx-auto px-10">
+
+        <section id="about" class="py-20 border-b">
+            <h2 class="text-3xl font-bold mb-10">About</h2>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="text-gray-700 leading-relaxed space-y-4">
+                    <p>
+                        Full stack developer focused on building scalable web applications using modern technologies.
+                    </p>
+                    <p>
+                        Strong interest in clean code, backend systems, and real-world problem solving.
+                    </p>
                 </div>
-                <div class="details-grid">
-                    <div class="detail-item">
-                        <div class="detail-label">Branch</div>
-                        <div class="detail-value">BTech CSE AI & ML</div>
+
+                <div class="space-y-6">
+                    <div class="border-l-2 pl-4 hover:pl-6 transition-all">
+                        <p class="text-xs uppercase text-gray-400">Education</p>
+                        <p class="text-lg font-medium">B.Tech CSE (AI & ML)</p>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Current Semester</div>
-                        <div class="detail-value">6th Semester</div>
+
+                    <div class="border-l-2 pl-4 hover:pl-6 transition-all">
+                        <p class="text-xs uppercase text-gray-400">Graduation</p>
+                        <p class="text-lg font-medium">2026</p>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Location</div>
-                        <div class="detail-value">Bathinda, Punjab, India</div>
+
+                    <div class="border-l-2 pl-4 hover:pl-6 transition-all">
+                        <p class="text-xs uppercase text-gray-400">Location</p>
+                        <p class="text-lg font-medium">
+                            Bathinda, Punjab (Open to Remote)
+                        </p>
                     </div>
-                    <div class="detail-item">
-                        <div class="detail-label">Focus</div>
-                        <div class="detail-value">Full Stack Development</div>
+
+                    <div class="border-l-2 pl-4 hover:pl-6 transition-all">
+                        <p class="text-xs uppercase text-gray-400">Focus</p>
+                        <p class="text-lg font-medium">
+                            Full Stack Development (MERN)
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="skills">
-            <h2>Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <div class="skill-name">Frontend</div>
-                    <div class="skill-list">
-                        <span class="skill-tag">React</span>
-                        <span class="skill-tag">HTML</span>
-                        <span class="skill-tag">CSS</span>
-                        <span class="skill-tag">Tailwind</span>
-                        <span class="skill-tag">JavaScript</span>
+        <section id="skills" class="py-20 border-b">
+            <h2 class="text-3xl font-bold mb-10">Skills</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="border p-6 hover:bg-gray-100 transition">
+                    <p class="text-xs uppercase text-gray-400 mb-3">Frontend</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-black text-white px-3 py-1 rounded-full">React</span>
+                        <span class="bg-black text-white px-3 py-1 rounded-full">HTML</span>
+                        <span class="bg-black text-white px-3 py-1 rounded-full">CSS</span>
+                        <span class="bg-black text-white px-3 py-1 rounded-full">Tailwind</span>
+                        <span class="bg-black text-white px-3 py-1 rounded-full">JavaScript</span>
                     </div>
                 </div>
-                <div class="skill-category">
-                    <div class="skill-name">Backend & Database</div>
-                    <div class="skill-list">
-                        <span class="skill-tag">MongoDB</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">Express</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <div class="skill-name">Tools & Concepts</div>
-                    <div class="skill-list">
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">System Design</span>
-                        <span class="skill-tag">REST APIs</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <div class="skill-name">Currently Learning</div>
-                    <div class="skill-list">
-                        <span class="skill-tag">Advanced React</span>
-                        <span class="skill-tag">Scalable Architecture</span>
+
+                <div class="border p-6 hover:bg-gray-100 transition">
+                    <p class="text-xs uppercase text-gray-400 mb-3">Backend</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-black text-white px-3 py-1 rounded-full">Node.js</span>
+                        <span class="bg-black text-white px-3 py-1 rounded-full">Express</span>
+                        <span class="bg-black text-white px-3 py-1 rounded-full">MongoDB</span>
+                        <span class="bg-black text-white px-3 py-1 rounded-full">SQL</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="projects">
-            <h2>Projects</h2>
-            <p style="color: var(--gray-3); margin-bottom: 40px; font-size: 0.95rem;">Replace the links below with your project URLs. Hover over each card to view project details.</p>
-            <div class="projects-container">
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-title">Project One</div>
-                        <div class="project-tech">React • MongoDB • Node.js</div>
-                        <a href="YOUR_PROJECT_1_LINK_HERE" class="project-link" target="_blank">View Live</a>
-                    </div>
+        <section id="projects" class="py-20 border-b">
+            <h2 class="text-3xl font-bold mb-10">Projects</h2>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="border p-6 hover:shadow-lg transition">
+                    <h3 class="text-xl font-semibold mb-2">Project One</h3>
+                    <p class="text-gray-500 text-sm mb-4">React • Node • MongoDB</p>
+                    <a href="#" class="text-sm border px-4 py-2 hover:bg-black hover:text-white transition">View</a>
                 </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-title">Project Two</div>
-                        <div class="project-tech">React • SQL • Express</div>
-                        <a href="YOUR_PROJECT_2_LINK_HERE" class="project-link" target="_blank">View Live</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-title">Project Three</div>
-                        <div class="project-tech">HTML • CSS • JavaScript</div>
-                        <a href="YOUR_PROJECT_3_LINK_HERE" class="project-link" target="_blank">View Live</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-content">
-                        <div class="project-title">Project Four</div>
-                        <div class="project-tech">React • Tailwind • API</div>
-                        <a href="YOUR_PROJECT_4_LINK_HERE" class="project-link" target="_blank">View Live</a>
-                    </div>
+
+                <div class="border p-6 hover:shadow-lg transition">
+                    <h3 class="text-xl font-semibold mb-2">Project Two</h3>
+                    <p class="text-gray-500 text-sm mb-4">React • SQL • Express</p>
+                    <a href="#" class="text-sm border px-4 py-2 hover:bg-black hover:text-white transition">View</a>
                 </div>
             </div>
         </section>
 
-        <section id="certificates">
-            <h2>Certificates</h2>
-            <div class="certificate-item">
-                <div class="cert-icon">🎓</div>
-                <div class="cert-content">
-                    <div class="cert-title">The Web Developer Bootcamp 2025</div>
-                    <div class="cert-meta">Udemy • July 7, 2025 • 74 total hours</div>
-                    <div class="cert-description">Comprehensive full-stack web development bootcamp covering frontend and backend technologies. Instructor: Colt Steele. Certificate No: UC-7ffe408a-97ea-47ba-9088-629d7fe24412</div>
-                </div>
+        <section id="certificates" class="py-20">
+            <h2 class="text-3xl font-bold mb-10">Certificates</h2>
+
+            <div class="border-b pb-6 mb-6">
+                <h3 class="text-lg font-semibold">Web Developer Bootcamp</h3>
+                <p class="text-gray-500 text-sm">Udemy • 74 Hours</p>
+                <p class="text-gray-700 mt-2 text-sm">
+                    Full stack development including frontend and backend.
+                </p>
             </div>
         </section>
+
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="contact-links">
-                <a href="mailto:your-email@example.com" class="contact-link">Email</a>
-                <a href="https://github.com" class="contact-link" target="_blank">GitHub</a>
-                <a href="https://linkedin.com" class="contact-link" target="_blank">LinkedIn</a>
-            </div>
-            <div class="footer-text">
-                © 2025 Mandeep Bhatt. All rights reserved.
-            </div>
+    <footer class="border-t py-10 text-center">
+        <div class="space-x-6">
+            <a href="#" class="hover:underline">Email</a>
+            <a href="#" class="hover:underline">GitHub</a>
+            <a href="#" class="hover:underline">LinkedIn</a>
         </div>
+        <p class="text-gray-400 text-sm mt-4">
+            © 2026 Mandeep Bhatt
+        </p>
     </footer>
+
 </body>
+
 </html>
