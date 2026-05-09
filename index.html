@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mandeep Bhatt — Full Stack Developer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --black: #111111;
+            --white: #f9f9f9;
+            --gray-100: #f0f0f0;
+            --gray-200: #e2e2e2;
+            --gray-400: #888;
+            --gray-600: #444;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--white);
+            color: var(--black);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.4rem 6vw;
+            background: rgba(249,249,249,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .nav-logo {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.8rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.92rem;
+            font-weight: 400;
+            color: var(--black);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--black);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after { width: 100%; }
+
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 6vw 6rem;
+            border-bottom: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            bottom: -2rem;
+            right: 4vw;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(10rem, 20vw, 20rem);
+            font-weight: 700;
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--gray-200);
+            line-height: 1;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 3rem;
+            left: 6vw;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.6s forwards;
+        }
+
+        .hero-scroll::before {
+            content: '';
+            width: 1.5rem;
+            height: 1px;
+            background: var(--gray-400);
+        }
+
+        .hero-scroll span {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+        }
+
+        .hero-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 1.6rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.15s forwards;
+        }
+
+        .hero-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(4rem, 9vw, 8rem);
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -0.02em;
+            color: var(--black);
+            margin-bottom: 2.2rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.3s forwards;
+        }
+
+        .hero-sub {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            opacity: 0;
+            animation: fadeUp 0.7s 0.45s forwards;
+        }
+
+        .hero-sub-line {
+            width: 2.5rem;
+            height: 1px;
+            background: var(--gray-400);
+            flex-shrink: 0;
+        }
+
+        .hero-sub p {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--gray-600);
+            letter-spacing: 0.02em;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(18px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 6vw; }
+        section { padding: 7rem 0; border-bottom: 1px solid var(--gray-200); }
+
+        .section-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1.2rem;
+            margin-bottom: 4rem;
+        }
+
+        .section-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--gray-400);
+            letter-spacing: 0.18em;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -0.01em;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 5rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--gray-600);
+            line-height: 1.85;
+            margin-bottom: 1.1rem;
+        }
+
+        .about-facts { display: flex; flex-direction: column; gap: 1.8rem; }
+
+        .fact {
+            padding-left: 1.2rem;
+            border-left: 2px solid var(--gray-200);
+            transition: border-color 0.2s, padding-left 0.2s;
+        }
+
+        .fact:hover { border-color: var(--black); padding-left: 1.6rem; }
+
+        .fact-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 0.3rem;
+        }
+
+        .fact-value {
+            font-size: 0.98rem;
+            font-weight: 500;
+            color: var(--black);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            border: 1px solid var(--gray-200);
+        }
+
+        .skill-block {
+            padding: 2.4rem;
+            border-right: 1px solid var(--gray-200);
+            transition: background 0.2s;
+        }
+
+        .skill-block:last-child { border-right: none; }
+        .skill-block:hover { background: var(--gray-100); }
+
+        .skill-block-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-400);
+            margin-bottom: 1.4rem;
+        }
+
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+        .tag {
+            font-size: 0.84rem;
+            font-weight: 400;
+            color: var(--black);
+            padding: 0.35rem 0.9rem;
+            border: 1px solid var(--gray-200);
+            cursor: default;
+            transition: background 0.18s, color 0.18s, border-color 0.18s;
+        }
+
+        .tag:hover {
+            background: var(--black);
+            color: var(--white);
+            border-color: var(--black);
+        }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: 3rem 1fr 5rem;
+            align-items: center;
+            gap: 2rem;
+            padding: 2.8rem 0;
+            border-bottom: 1px solid var(--gray-200);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            transition: padding-left 0.25s;
+        }
+
+        .project-row:first-child { border-top: 1px solid var(--gray-200); }
+
+        .project-row::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 0;
+            background: var(--black);
+            transition: width 0.22s;
+        }
+
+        .project-row:hover { padding-left: 1.2rem; }
+        .project-row:hover::before { width: 3px; }
+
+        .project-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--gray-400);
+            letter-spacing: 0.1em;
+        }
+
+        .project-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.35rem;
+        }
+
+        .project-stack {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.65rem;
+        }
+
+        .project-desc {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-weight: 300;
+            line-height: 1.65;
+            max-width: 52ch;
+        }
+
+        .project-arrow {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--gray-400);
+            text-align: right;
+            letter-spacing: 0.06em;
+            transition: color 0.2s, transform 0.2s;
+        }
+
+        .project-row:hover .project-arrow {
+            color: var(--black);
+            transform: translateX(4px);
+        }
+
+        .cert-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 3rem;
+            padding: 2.8rem 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .cert-row:first-child { border-top: 1px solid var(--gray-200); }
+
+        .cert-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--black);
+            margin-bottom: 0.3rem;
+        }
+
+        .cert-issuer {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--gray-400);
+            letter-spacing: 0.08em;
+            margin-bottom: 0.75rem;
+        }
+
+        .cert-desc {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-weight: 300;
+            line-height: 1.65;
+            max-width: 48ch;
+        }
+
+        .cert-meta { flex-shrink: 0; text-align: right; }
+
+        .cert-date {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--gray-400);
+            letter-spacing: 0.1em;
+        }
+
+        .cert-link {
+            display: inline-block;
+            margin-top: 1rem;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--black);
+            text-decoration: none;
+            border-bottom: 1px solid var(--gray-200);
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+
+        .cert-link:hover { border-color: var(--black); }
+
+        footer { padding: 3.5rem 6vw; }
+
+        .footer-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-links { display: flex; gap: 2.5rem; }
+
+        .footer-links a {
+            font-size: 0.92rem;
+            font-weight: 400;
+            color: var(--black);
+            text-decoration: none;
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px; left: 0;
+            width: 0; height: 1px;
+            background: var(--black);
+            transition: width 0.3s;
+        }
+
+        .footer-links a:hover::after { width: 100%; }
+
+        .footer-copy {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--gray-400);
+            letter-spacing: 0.1em;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .skill-block { border-right: none; border-bottom: 1px solid var(--gray-200); }
+            .skill-block:last-child { border-bottom: none; }
+            .project-row { grid-template-columns: 2.5rem 1fr; }
+            .project-arrow { display: none; }
+            .cert-row { flex-direction: column; gap: 1rem; }
+            .cert-meta { text-align: left; }
+            .footer-inner { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .hero-bg-text { display: none; }
+            .nav-links { gap: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="#" class="nav-logo">MB</a>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+    </ul>
+</nav>
+
+<header>
+    <div class="hero-bg-text">MB</div>
+    <div class="hero-scroll"><span>Scroll</span></div>
+    <p class="hero-label">Full Stack Developer</p>
+    <h1 class="hero-name">Mandeep<br>Bhatt</h1>
+    <div class="hero-sub">
+        <span class="hero-sub-line"></span>
+        <p>B.Tech CSE (AI &amp; ML) &nbsp;·&nbsp; Graduating 2027 &nbsp;·&nbsp; Bathinda, Punjab</p>
+    </div>
+</header>
+
+<main>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">01</span>
+                <h2 class="section-title">About</h2>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>Full stack developer focused on building scalable, real-world web applications using modern technologies.</p>
+                    <p>Strong interest in clean architecture, backend systems, and products that solve genuine problems.</p>
+                    <p>Currently completing a B.Tech in Computer Science with a specialisation in AI &amp; ML, graduating in 2027.</p>
+                </div>
+                <div class="about-facts">
+                    <div class="fact">
+                        <p class="fact-label">Education</p>
+                        <p class="fact-value">B.Tech CSE (AI &amp; ML)</p>
+                    </div>
+                    <div class="fact">
+                        <p class="fact-label">Graduation</p>
+                        <p class="fact-value">2027</p>
+                    </div>
+                    <div class="fact">
+                        <p class="fact-label">Location</p>
+                        <p class="fact-value">Bathinda, Punjab — Open to Remote</p>
+                    </div>
+                    <div class="fact">
+                        <p class="fact-label">Focus</p>
+                        <p class="fact-value">Full Stack Development (MERN)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">02</span>
+                <h2 class="section-title">Skills</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-block">
+                    <p class="skill-block-label">Frontend</p>
+                    <div class="skill-tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Vite</span>
+                        <span class="tag">HTML</span>
+                        <span class="tag">CSS</span>
+                        <span class="tag">Tailwind CSS</span>
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">React Router</span>
+                        <span class="tag">Context API</span>
+                    </div>
+                </div>
+                <div class="skill-block">
+                    <p class="skill-block-label">Backend</p>
+                    <div class="skill-tags">
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Express</span>
+                        <span class="tag">REST APIs</span>
+                        <span class="tag">JWT Auth</span>
+                        <span class="tag">Socket.io</span>
+                        <span class="tag">Rate Limiting</span>
+                        <span class="tag">Helmet</span>
+                        <span class="tag">bcrypt</span>
+                    </div>
+                </div>
+                <div class="skill-block">
+                    <p class="skill-block-label">Database &amp; Tools</p>
+                    <div class="skill-tags">
+                        <span class="tag">MongoDB</span>
+                        <span class="tag">Mongoose</span>
+                        <span class="tag">SQL</span>
+                        <span class="tag">Git</span>
+                        <span class="tag">GitHub</span>
+                        <span class="tag">Vercel</span>
+                        <span class="tag">Axios</span>
+                        <span class="tag">Winston</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">03</span>
+                <h2 class="section-title">Projects</h2>
+            </div>
+            <div>
+                <a href="https://version-flow.vercel.app/" target="_blank" rel="noopener" class="project-row">
+                    <span class="project-num">01</span>
+                    <div>
+                        <h3 class="project-name">SaaS Project Management Platform</h3>
+                        <p class="project-stack">MongoDB · Express · React · Node.js · JWT · CSS Modules</p>
+                        <p class="project-desc">Collaborative resource management with tier-based subscriptions (Free, Pro, Enterprise), smart auto-versioning, real-time storage quota validation, and role-based access control for admins, editors, and viewers.</p>
+                    </div>
+                    <span class="project-arrow">Live ↗</span>
+                </a>
+
+                <a href="https://post-stack-ten.vercel.app/" target="_blank" rel="noopener" class="project-row">
+                    <span class="project-num">02</span>
+                    <div>
+                        <h3 class="project-name">API Tester</h3>
+                        <p class="project-stack">MongoDB · Express · React · Node.js · Tailwind CSS · JWT</p>
+                        <p class="project-desc">Full-stack API testing platform built like Postman. Supports all HTTP methods, custom headers, query params, JSON body, saved collections, request history, and environment variables. Backend proxy bypasses CORS restrictions.</p>
+                    </div>
+                    <span class="project-arrow">Live ↗</span>
+                </a>
+
+                <a href="https://my-chats-seven.vercel.app/login" target="_blank" rel="noopener" class="project-row">
+                    <span class="project-num">03</span>
+                    <div>
+                        <h3 class="project-name">Real-Time Chat App</h3>
+                        <p class="project-stack">MongoDB · Express · React · Node.js · Socket.io · Tailwind CSS · Vite</p>
+                        <p class="project-desc">Real-time messaging with direct and group chats, typing indicators, online/offline presence, live edit and delete, message pagination, JWT auth with refresh, rate limiting, and Winston logging.</p>
+                    </div>
+                    <span class="project-arrow">Live ↗</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificates">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-num">04</span>
+                <h2 class="section-title">Certificates</h2>
+            </div>
+            <div>
+                <div class="cert-row">
+                    <div>
+                        <h3 class="cert-name">The Web Developer Bootcamp 2025</h3>
+                        <p class="cert-issuer">Udemy · Colt Steele · 74 Total Hours</p>
+                        <p class="cert-desc">Comprehensive full stack web development covering HTML, CSS, JavaScript, Node.js, Express, and MongoDB — from fundamentals to production-ready applications.</p>
+                    </div>
+                    <div class="cert-meta">
+                        <p class="cert-date">July 7, 2025</p>
+                        <a href="https://ude.my/UC-7ffe408a-97ea-47ba-9088-629d7fe24412" target="_blank" rel="noopener" class="cert-link">View Certificate ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="mailto:mandeepbhatt52@gmail.com">Email</a>
+            <a href="https://github.com/mandeeep03" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.linkedin.com/in/mandeep-bhatt-41a85b296/" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="footer-copy">© 2027 Mandeep Bhatt</p>
+    </div>
+</footer>
+
+</body>
+</html>
